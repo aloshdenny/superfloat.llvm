@@ -38,6 +38,7 @@ Type *Type::getPrimitiveType(LLVMContext &C, TypeID IDNumber) {
   case VoidTyID      : return getVoidTy(C);
   case HalfTyID      : return getHalfTy(C);
   case BFloatTyID    : return getBFloatTy(C);
+  case SF16TyID      : return getSF16Ty(C);
   case FloatTyID     : return getFloatTy(C);
   case DoubleTyID    : return getDoubleTy(C);
   case X86_FP80TyID  : return getX86_FP80Ty(C);
@@ -169,6 +170,8 @@ TypeSize Type::getPrimitiveSizeInBits() const {
     return TypeSize::getFixed(16);
   case Type::BFloatTyID:
     return TypeSize::getFixed(16);
+  case Type::SF16TyID:
+    return TypeSize::getFixed(16);
   case Type::FloatTyID:
     return TypeSize::getFixed(32);
   case Type::DoubleTyID:
@@ -238,6 +241,7 @@ Type *Type::getVoidTy(LLVMContext &C) { return &C.pImpl->VoidTy; }
 Type *Type::getLabelTy(LLVMContext &C) { return &C.pImpl->LabelTy; }
 Type *Type::getHalfTy(LLVMContext &C) { return &C.pImpl->HalfTy; }
 Type *Type::getBFloatTy(LLVMContext &C) { return &C.pImpl->BFloatTy; }
+Type *Type::getSF16Ty(LLVMContext &C) { return &C.pImpl->SF16Ty; }
 Type *Type::getFloatTy(LLVMContext &C) { return &C.pImpl->FloatTy; }
 Type *Type::getDoubleTy(LLVMContext &C) { return &C.pImpl->DoubleTy; }
 Type *Type::getMetadataTy(LLVMContext &C) { return &C.pImpl->MetadataTy; }

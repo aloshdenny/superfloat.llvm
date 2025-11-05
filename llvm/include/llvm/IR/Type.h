@@ -56,6 +56,7 @@ public:
     HalfTyID = 0,  ///< 16-bit floating point type
     BFloatTyID,    ///< 16-bit floating point type (7-bit significand)
     FloatTyID,     ///< 32-bit floating point type
+    SF16TyID,      ///< 16-bit signed fixed point type 
     DoubleTyID,    ///< 64-bit floating point type
     X86_FP80TyID,  ///< 80-bit floating point type (X87)
     FP128TyID,     ///< 128-bit floating point type (112-bit significand)
@@ -144,10 +145,18 @@ public:
 
   /// Return true if this is 'bfloat', a 16-bit bfloat type.
   bool isBFloatTy() const { return getTypeID() == BFloatTyID; }
+  
+  /// Return true if this is 'sf16', a 16-bit signed fixed point type.
+  bool isSF16Ty() const { return getTypeID() == SF16TyID; }
+  
+  /// Return true if this is a fixed-point type.
+  bool isFixedPointTy() const {
+    return getTypeID() == SF16TyID;
+    }
 
   /// Return true if this is a 16-bit float type.
   bool is16bitFPTy() const {
-    return getTypeID() == BFloatTyID || getTypeID() == HalfTyID;
+    return getTypeID() == BFloatTyID || getTypeID() == HalfTyID ;
   }
 
   /// Return true if this is 'float', a 32-bit IEEE fp type.
@@ -213,7 +222,9 @@ public:
   bool isScalableTy() const;
 
   /// Return true if this is a FP type or a vector of FP.
-  bool isFPOrFPVectorTy() const { return getScalarType()->isFloatingPointTy(); }
+  bool isFPOrFPVectorTy() const { 
+    Type *Scalar = getScalarType();
+    return Scalar->isFloatingPointTy() || Scalar->isFixedPointTy(); }
 
   /// Return true if this is 'label'.
   bool isLabelTy() const { return getTypeID() == LabelTyID; }
@@ -285,7 +296,7 @@ public:
   /// Return true if the type is a valid type for a register in codegen. This
   /// includes all first-class types except struct and array types.
   bool isSingleValueType() const {
-    return isFloatingPointTy() || isX86_MMXTy() || isIntegerTy() ||
+    return isFloatingPointTy() || isFixedPointTy() || isX86_MMXTy() || isIntegerTy() ||
            isPointerTy() || isVectorTy() || isX86_AMXTy() || isTargetExtTy();
   }
 
@@ -301,7 +312,7 @@ public:
   /// DataLayout subsystem to do this.
   bool isSized(SmallPtrSetImpl<Type*> *Visited = nullptr) const {
     // If it's a primitive, it is always sized.
-    if (getTypeID() == IntegerTyID || isFloatingPointTy() ||
+    if (getTypeID() == IntegerTyID || isFloatingPointTy() || isFixedPointTy() ||
         getTypeID() == PointerTyID || getTypeID() == X86_MMXTyID ||
         getTypeID() == X86_AMXTyID)
       return true;
@@ -447,6 +458,7 @@ public:
   static Type *getLabelTy(LLVMContext &C);
   static Type *getHalfTy(LLVMContext &C);
   static Type *getBFloatTy(LLVMContext &C);
+  static Type *getSF16Ty(LLVMContext &C);
   static Type *getFloatTy(LLVMContext &C);
   static Type *getDoubleTy(LLVMContext &C);
   static Type *getMetadataTy(LLVMContext &C);

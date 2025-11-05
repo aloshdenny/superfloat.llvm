@@ -148,6 +148,7 @@ typedef enum {
 typedef enum {
   LLVMVoidTypeKind,      /**< type with no size */
   LLVMHalfTypeKind,      /**< 16 bit floating point type */
+  LLVMSF16TypeKind,       /**< 16 bit Fixed Point type */
   LLVMFloatTypeKind,     /**< 32 bit floating point type */
   LLVMDoubleTypeKind,    /**< 64 bit floating point type */
   LLVMX86_FP80TypeKind,  /**< 80 bit floating point type (X87) */
@@ -167,7 +168,7 @@ typedef enum {
   LLVMBFloatTypeKind,    /**< 16 bit brain floating point type */
   LLVMX86_AMXTypeKind,   /**< X86 AMX */
   LLVMTargetExtTypeKind, /**< Target extension type */
-} LLVMTypeKind;
+ } LLVMTypeKind;
 
 typedef enum {
   LLVMExternalLinkage,    /**< Externally visible function */
@@ -1282,6 +1283,11 @@ unsigned LLVMGetIntTypeWidth(LLVMTypeRef IntegerTy);
 LLVMTypeRef LLVMHalfTypeInContext(LLVMContextRef C);
 
 /**
+ * Obtain a 16-bit floating point type from a context.
+ */
+LLVMTypeRef LLVMSF16TypeInContext(LLVMContextRef C);
+
+/**
  * Obtain a 16-bit brain floating point type from a context.
  */
 LLVMTypeRef LLVMBFloatTypeInContext(LLVMContextRef C);
@@ -1320,6 +1326,7 @@ LLVMTypeRef LLVMPPCFP128TypeInContext(LLVMContextRef C);
 LLVMTypeRef LLVMHalfType(void);
 LLVMTypeRef LLVMBFloatType(void);
 LLVMTypeRef LLVMFloatType(void);
+LLVMTypeRef LLVMSF16Type(void);
 LLVMTypeRef LLVMDoubleType(void);
 LLVMTypeRef LLVMX86FP80Type(void);
 LLVMTypeRef LLVMFP128Type(void);

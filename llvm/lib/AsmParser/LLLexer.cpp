@@ -820,6 +820,7 @@ lltok::Kind LLLexer::LexIdentifier() {
   TYPEKEYWORD("void",      Type::getVoidTy(Context));
   TYPEKEYWORD("half",      Type::getHalfTy(Context));
   TYPEKEYWORD("bfloat",    Type::getBFloatTy(Context));
+  TYPEKEYWORD("sf16",      Type::getSF16Ty(Context));
   TYPEKEYWORD("float",     Type::getFloatTy(Context));
   TYPEKEYWORD("double",    Type::getDoubleTy(Context));
   TYPEKEYWORD("x86_fp80",  Type::getX86_FP80Ty(Context));

@@ -37,6 +37,7 @@ LLVMContextImpl::LLVMContextImpl(LLVMContext &C)
     : DiagHandler(std::make_unique<DiagnosticHandler>()),
       VoidTy(C, Type::VoidTyID), LabelTy(C, Type::LabelTyID),
       HalfTy(C, Type::HalfTyID), BFloatTy(C, Type::BFloatTyID),
+      SF16Ty(C, Type::SF16TyID),
       FloatTy(C, Type::FloatTyID), DoubleTy(C, Type::DoubleTyID),
       MetadataTy(C, Type::MetadataTyID), TokenTy(C, Type::TokenTyID),
       X86_FP80Ty(C, Type::X86_FP80TyID), FP128Ty(C, Type::FP128TyID),

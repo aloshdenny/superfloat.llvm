@@ -555,6 +555,8 @@ LLVMTypeKind LLVMGetTypeKind(LLVMTypeRef Ty) {
     return LLVMHalfTypeKind;
   case Type::BFloatTyID:
     return LLVMBFloatTypeKind;
+  case Type::SF16TyID:
+    return LLVMSF16TypeKind;  
   case Type::FloatTyID:
     return LLVMFloatTypeKind;
   case Type::DoubleTyID:
@@ -682,6 +684,9 @@ LLVMTypeRef LLVMHalfTypeInContext(LLVMContextRef C) {
 LLVMTypeRef LLVMBFloatTypeInContext(LLVMContextRef C) {
   return (LLVMTypeRef) Type::getBFloatTy(*unwrap(C));
 }
+LLVMTypeRef LLVMSF16TypeInContext(LLVMContextRef C) {
+  return (LLVMTypeRef) Type::getSF16Ty(*unwrap(C));
+}
 LLVMTypeRef LLVMFloatTypeInContext(LLVMContextRef C) {
   return (LLVMTypeRef) Type::getFloatTy(*unwrap(C));
 }
@@ -709,6 +714,9 @@ LLVMTypeRef LLVMHalfType(void) {
 }
 LLVMTypeRef LLVMBFloatType(void) {
   return LLVMBFloatTypeInContext(LLVMGetGlobalContext());
+}
+LLVMTypeRef LLVMSF16Type(void) {
+  return LLVMSF16TypeInContext(LLVMGetGlobalContext());
 }
 LLVMTypeRef LLVMFloatType(void) {
   return LLVMFloatTypeInContext(LLVMGetGlobalContext());
@@ -1486,6 +1494,19 @@ LLVMValueRef LLVMConstRealOfStringAndSize(LLVMTypeRef RealTy, const char Str[],
   return wrap(ConstantFP::get(unwrap(RealTy), StringRef(Str, SLen)));
 }
 
+LLVMValueRef LLVMConstSF16(LLVMTypeRef RealTy, float N) {
+  return wrap(ConstantFP::get(unwrap(RealTy), N));
+}
+
+LLVMValueRef LLVMConstSF16OfString(LLVMTypeRef RealTy, const char *Text) {
+  return wrap(ConstantFP::get(unwrap(RealTy), StringRef(Text)));
+}
+
+LLVMValueRef LLVMConstSF16OfStringAndSize(LLVMTypeRef RealTy, const char Str[],
+                                          unsigned SLen) {
+  return wrap(ConstantFP::get(unwrap(RealTy), StringRef(Str, SLen)));
+}
+
 unsigned long long LLVMConstIntGetZExtValue(LLVMValueRef ConstantVal) {
   return unwrap<ConstantInt>(ConstantVal)->getZExtValue();
 }
@@ -1498,7 +1519,7 @@ double LLVMConstRealGetDouble(LLVMValueRef ConstantVal, LLVMBool *LosesInfo) {
   ConstantFP *cFP = unwrap<ConstantFP>(ConstantVal) ;
   Type *Ty = cFP->getType();
 
-  if (Ty->isHalfTy() || Ty->isBFloatTy() || Ty->isFloatTy() ||
+  if (Ty->isHalfTy() || Ty->isBFloatTy() || Ty->isSF16Ty() || Ty->isFloatTy() ||
       Ty->isDoubleTy()) {
     *LosesInfo = false;
     return cFP->getValueAPF().convertToDouble();

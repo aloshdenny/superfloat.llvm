@@ -590,6 +590,7 @@ MVT MVT::getVT(Type *Ty, bool HandleUnknown){
     return getIntegerVT(cast<IntegerType>(Ty)->getBitWidth());
   case Type::HalfTyID:      return MVT(MVT::f16);
   case Type::BFloatTyID:    return MVT(MVT::bf16);
+  case Type::SF16TyID:      return MVT(MVT::i16);
   case Type::FloatTyID:     return MVT(MVT::f32);
   case Type::DoubleTyID:    return MVT(MVT::f64);
   case Type::X86_FP80TyID:  return MVT(MVT::f80);
