@@ -2245,6 +2245,7 @@ public:
   bool isHalfType() const;         // OpenCL 6.1.1.1, NEON (IEEE 754-2008 half)
   bool isFloat16Type() const;      // C11 extension ISO/IEC TS 18661
   bool isBFloat16Type() const;
+  bool isSF16Type() const;
   bool isFloat128Type() const;
   bool isIbm128Type() const;
   bool isRealType() const;         // C99 6.2.5p17 (real floating + integer)
@@ -7387,6 +7388,10 @@ inline bool Type::isBFloat16Type() const {
   return isSpecificBuiltinType(BuiltinType::BFloat16);
 }
 
+inline bool Type::isSF16Type() const {
+  return isSpecificBuiltinType(BuiltinType::SF16);
+}
+
 inline bool Type::isFloat128Type() const {
   return isSpecificBuiltinType(BuiltinType::Float128);
 }
@@ -7417,8 +7422,9 @@ inline bool Type::isIntegerType() const {
 
 inline bool Type::isFixedPointType() const {
   if (const auto *BT = dyn_cast<BuiltinType>(CanonicalType)) {
-    return BT->getKind() >= BuiltinType::ShortAccum &&
-           BT->getKind() <= BuiltinType::SatULongFract;
+    return (BT->getKind() >= BuiltinType::ShortAccum &&
+           BT->getKind() <= BuiltinType::SatULongFract) ||
+           BT->getKind() == BuiltinType::SF16;
   }
   return false;
 }

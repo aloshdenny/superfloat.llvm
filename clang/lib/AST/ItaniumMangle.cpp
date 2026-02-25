@@ -3281,6 +3281,9 @@ void CXXNameMangler::mangleType(const BuiltinType *T) {
   case BuiltinType::SatULongFract:
     Out << "DSDRm";
     break;
+  case BuiltinType::SF16:
+    Out << "u4sf16";
+    break;
   case BuiltinType::Half:
     Out << "Dh";
     break;

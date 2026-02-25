@@ -195,6 +195,11 @@ UNSIGNED_TYPE(SatUFract, SatUnsignedFractTy)
 // '_Sat unsigned long _Fract'
 UNSIGNED_TYPE(SatULongFract, SatUnsignedLongFractTy)
 
+//===- Custom Fixed Point Type -----------------------------------------------===//
+
+// Custom 16-bit fixed-point type
+BUILTIN_TYPE(SF16, SF16Ty)
+
 //===- Floating point types -----------------------------------------------===//
 
 // 'half' in OpenCL, '__fp16' in ARM NEON.

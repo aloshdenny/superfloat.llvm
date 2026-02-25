@@ -1406,6 +1406,9 @@ void ASTContext::InitBuiltinTypes(const TargetInfo &Target,
 
   InitBuiltinType(BFloat16Ty, BuiltinType::BFloat16);
 
+  //SF16 Type
+  InitBuiltinType(SF16Ty, BuiltinType::SF16);
+  
   // Builtin type used to help define __builtin_va_list.
   VaListTagDecl = nullptr;
 
@@ -2067,6 +2070,12 @@ TypeInfo ASTContext::getTypeInfoImpl(const Type *T) const {
       Width = Target->getLongFractWidth();
       Align = Target->getLongFractAlign();
       break;
+
+    case BuiltinType::SF16:
+      Width = 16;
+      Align = 16;
+      break;
+
     case BuiltinType::BFloat16:
       if (Target->hasBFloat16Type()) {
         Width = Target->getBFloat16Width();
@@ -8003,7 +8012,9 @@ static char getObjCEncodingForPrimitiveType(const ASTContext *C,
     case BuiltinType::Double:     return 'd';
     case BuiltinType::LongDouble: return 'D';
     case BuiltinType::NullPtr:    return '*'; // like char*
-
+    
+    case BuiltinType::SF16:       return 'F';
+      
     case BuiltinType::BFloat16:
     case BuiltinType::Float16:
     case BuiltinType::Float128:

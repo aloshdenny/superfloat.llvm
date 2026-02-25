@@ -3253,6 +3253,10 @@ StringRef BuiltinType::getName(const PrintingPolicy &Policy) const {
     return Policy.Half ? "half" : "__fp16";
   case BFloat16:
     return "__bf16";
+
+  case SF16:
+    return "sf16";
+    
   case Float:
     return "float";
   case Double:
@@ -4516,6 +4520,9 @@ bool Type::canHaveNullability(bool ResultIfUnknown) const {
 #define FLOATING_TYPE(Id, SingletonId) case BuiltinType::Id:
 #define BUILTIN_TYPE(Id, SingletonId)
 #include "clang/AST/BuiltinTypes.def"
+      return false;
+
+    case BuiltinType::SF16:
       return false;
 
     // Dependent types that could instantiate to a pointer type.

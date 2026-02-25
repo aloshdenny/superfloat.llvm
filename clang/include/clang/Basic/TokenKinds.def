@@ -400,6 +400,10 @@ CXX11_KEYWORD(nullptr               , KEYC23)
 CXX11_KEYWORD(static_assert         , KEYMSCOMPAT|KEYC23)
 CXX11_KEYWORD(thread_local          , KEYC23)
 
+// Custom low-precision float type
+KEYWORD(sf16                        , KEYALL)
+
+
 // C++20 / coroutines keywords
 COROUTINES_KEYWORD(co_await)
 COROUTINES_KEYWORD(co_return)
