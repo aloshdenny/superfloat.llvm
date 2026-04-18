@@ -131,6 +131,7 @@ static unsigned getVersionValue(unsigned MajorVersion, unsigned MinorVersion) {
 void RISCVTargetInfo::getTargetDefines(const LangOptions &Opts,
                                        MacroBuilder &Builder) const {
   Builder.defineMacro("__riscv");
+  Builder.defineMacro("__SF16__");
   bool Is64Bit = getTriple().isRISCV64();
   Builder.defineMacro("__riscv_xlen", Is64Bit ? "64" : "32");
   StringRef CodeModel = getTargetOpts().CodeModel;

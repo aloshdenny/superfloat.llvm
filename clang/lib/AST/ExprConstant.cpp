@@ -11572,6 +11572,7 @@ GCCTypeClass EvaluateBuiltinClassifyType(QualType T,
     case BuiltinType::Char8:
     case BuiltinType::Char16:
     case BuiltinType::Char32:
+    case BuiltinType::SF16:
     case BuiltinType::UShort:
     case BuiltinType::UInt:
     case BuiltinType::ULong:

@@ -1533,6 +1533,11 @@ static QualType ConvertDeclSpecToType(TypeProcessingState &state) {
         << "_Float16";
     Result = Context.Float16Ty;
     break;
+
+  case DeclSpec::TST_SF16:
+    Result = Context.SF16Ty;
+    break;
+    
   case DeclSpec::TST_half:    Result = Context.HalfTy; break;
   case DeclSpec::TST_BFloat16:
     if (!S.Context.getTargetInfo().hasBFloat16Type() &&

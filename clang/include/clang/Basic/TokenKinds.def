@@ -400,7 +400,7 @@ CXX11_KEYWORD(nullptr               , KEYC23)
 CXX11_KEYWORD(static_assert         , KEYMSCOMPAT|KEYC23)
 CXX11_KEYWORD(thread_local          , KEYC23)
 
-// Custom low-precision float type
+// Custom low-precision fixed type
 KEYWORD(sf16                        , KEYALL)
 
 

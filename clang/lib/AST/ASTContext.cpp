@@ -13368,6 +13368,8 @@ unsigned char ASTContext::getFixedPointScale(QualType Ty) const {
     case BuiltinType::ULongFract:
     case BuiltinType::SatULongFract:
       return Target.getUnsignedLongFractScale();
+    case BuiltinType::SF16:
+      return 15;
   }
 }
 
